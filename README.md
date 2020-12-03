@@ -26,7 +26,7 @@ optional arguments:
 # Installation
 * ` git clone https://github.com/stormyordos/wocket.git `
 * Requires urllib and json packages
-* Tested on Python 2.7x and 3.x / Linux OpenSuSE. Should work on most other distributions supporting Python ... may even work with Windows
+* Tested on Python 3.x / Linux OpenSuSE. Should work on most other distributions supporting Python ... may even work with Windows
 
 # Examples
 * Requests all attached files from a room and downloads them in the current directory: `./wocket.py --room=myroom -a rocket.yolo.team --token=XXXX --id=XXXXX`
