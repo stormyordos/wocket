@@ -41,7 +41,7 @@ msgCount = 0
 if args["folder"] is None:
     folder = "."
 else:
-    folder = args["folder"]
+    folder = args["folder"].rstrip("/")
 
 #querying the Rocket Chat room for files
 if args["nofiles"] == False:
