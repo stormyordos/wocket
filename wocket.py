@@ -29,15 +29,20 @@ ap.add_argument("-i", "--id", required=True,
 ap.add_argument("-f", "--folder", required=False,
 	help="output folder for the downloads (default: current folder)")
 ap.add_argument("-m","--messages", required=False,
-	help="also list all messages from the chat (default: attached files)",action='store_true')
+	help="switch, also list all messages from the chat (default: attached files)",action='store_true')
 ap.add_argument("-x","--nofiles", required=False,
-	help="do not download attached files",action='store_true')
+	help="switch, do not download attached files",action='store_true')
+ap.add_argument("-c","--channel", required=False,
+	help="switch, look for a channel (open room) instead of a group (closed room)",action='store_true')
 args = vars(ap.parse_args())
 
 #setting variables
 counter = 0
 dled = 0
 msgCount = 0
+roomType = "groups"
+if args["channel"] == True:
+    roomType = "channels"
 if args["folder"] is None:
     folder = "."
 else:
@@ -45,7 +50,7 @@ else:
 
 #querying the Rocket Chat room for files
 if args["nofiles"] == False:
-    url = 'https://'+args["address"]+'/api/v1/groups.files?roomName='+args["room"]+'&count=0'
+    url = 'https://'+args["address"]+'/api/v1/'+roomType+'.files?roomName='+args["room"]+'&count=0'
     reqFiles = urllib.request.Request(url,headers={"X-Auth-Token":args["token"],"X-User-Id":args["id"]})
     #parsing response
     r = urllib.request.urlopen(reqFiles).read()
@@ -78,7 +83,7 @@ if args["nofiles"] == False:
 
 #querying the Rocket Chat room for files
 if args["messages"] == True:
-    url = 'https://'+args["address"]+'/api/v1/groups.messages?roomName='+args["room"]+'&count=0'
+    url = 'https://'+args["address"]+'/api/v1/'+roomType+'.messages?roomName='+args["room"]+'&count=0'
     reqMsg = urllib.request.Request(url,headers={"X-Auth-Token":args["token"],"X-User-Id":args["id"]})
 
     #parsing response
